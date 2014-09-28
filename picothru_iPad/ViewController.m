@@ -47,12 +47,18 @@
 	[self.view addSubview:_highlightView];
 	
 	_session = [[AVCaptureSession alloc] init];
-	_device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+	NSLog(@"_session: %@",_session);
+//	_device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+	_device = [self cameraWithPosition:AVCaptureDevicePositionFront];
 	NSError *error = nil;
+	NSLog(@"_device: %@",_device);
+	NSLog(@"frontcamera: %@",[self cameraWithPosition:AVCaptureDevicePositionFront]);
 	
 	_input = [AVCaptureDeviceInput deviceInputWithDevice:_device error:&error];
+	NSLog(@"_input: %@",_input);
 	if (_input) {
 		[_session addInput:_input];
+		NSLog(@"_session: %@",_session);
 	} else {
 		NSLog(@"Error: %@", error);
 	}
@@ -71,6 +77,18 @@
 	[_session startRunning];
 	
 	[self.view bringSubviewToFront:_highlightView];
+}
+		  
+// ポジションでカメラを返す
+- (AVCaptureDevice *) cameraWithPosition:(AVCaptureDevicePosition) position
+{
+		NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+		for (AVCaptureDevice *device in devices) {
+			if ([device position] == position) {
+				return device;
+			}
+		}
+		return nil;
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
@@ -138,7 +156,12 @@
 	NSLog(@"result: %@",result);
 	NSLog(@"error: %@",error);
 	
-	[self response2products:result];
+	int statusCode = response.statusCode;
+	if(statusCode == 201){
+		[self response2products:result];
+	}else{
+		[self viewDidLoad];
+	}
 }
 
 -(void)response2products:(NSData *)response
@@ -158,8 +181,8 @@
 		//　名前、価格、個数をproductsに保存
 		NSString *name = [obj objectForKey:@"name"];
 		NSString *price = [NSString stringWithFormat:@"%@",[obj objectForKey:@"price"]];
-//		NSString *amount = [NSString stringWithFormat:@"%@",[obj objectForKey:@"amount"]];
-		NSString *amount = [NSString stringWithFormat:@"%@",[obj objectForKey:@"id"]];
+		NSString *amount = [NSString stringWithFormat:@"%@",[obj objectForKey:@"amount"]];
+//		NSString *amount = [NSString stringWithFormat:@"%@",[obj objectForKey:@"id"]];
 		NSLog(@"name: %@, price: %@, amount: %@",name,price,amount);
 		[appDelegate setScanedProduct:name andPrice:price andAmount:amount];
 	}
@@ -172,9 +195,15 @@
 }
 
 //購入完了画面へ移動
--(void)gotoPurchase{
+-(void)gotoPurchase{	
 	PurchaseViewController *purchaseViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"purchase"];
 	[self presentViewController:purchaseViewController animated:YES completion:nil];
+}
+
+//スキャン画面を再読み込み
+-(void)gotoScan{
+	ViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"scan"];
+	[self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

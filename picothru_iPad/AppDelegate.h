@@ -17,6 +17,7 @@
 - (int)getTotalPrice;
 - (int)getTotalAmount;
 - (int)getCount;
+- (void)deleteAllProducts;
 
 @end
 

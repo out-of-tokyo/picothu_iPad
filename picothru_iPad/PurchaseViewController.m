@@ -17,6 +17,7 @@
 	UILabel *_thanksLabel;
 	NSInteger total;
 	AppDelegate *appDelegate;
+	NSTimer* timer;
 }
 @end
 
@@ -33,6 +34,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	
+	//タイマーをセット
+	timer =[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(nextPage:) userInfo:nil repeats:NO];
 
 	appDelegate = [[UIApplication sharedApplication] delegate];
 	
@@ -44,7 +48,6 @@
 	tableView.dataSource = self;
 	[tableView registerNib:[UINib nibWithNibName:@"ListTableViewCell" bundle:nil]forCellReuseIdentifier:@"cell"];
 
-	
 	//お買い上げありがとうございましたラベル
 	_thanksLabel = [[UILabel alloc] init];
 	_thanksLabel.numberOfLines = 2;
@@ -100,6 +103,16 @@
 	return [appDelegate getCount];
 }
 
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	switch(indexPath.row) {
+		case 0:
+			return 100;
+		default:
+			return 30;
+	}
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSString *cellIdentifier = @"cell";
@@ -111,11 +124,16 @@
 	return cell;
 }
 
+//スキャン画面に戻る
+-(void)nextPage:(NSTimer*)timer{
+	//購入情報を消去
+	[appDelegate deleteAllProducts];
 
-
-
-
-
+	//ページ移動
+	ViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"scan"];
+	[self presentViewController:viewController animated:YES completion:nil];
+	[timer invalidate];
+}
 
 
 @end
