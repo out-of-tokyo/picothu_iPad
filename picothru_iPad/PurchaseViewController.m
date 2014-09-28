@@ -36,18 +36,36 @@
 	[super viewDidLoad];
 	
 	//タイマーをセット
-	timer =[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(nextPage:) userInfo:nil repeats:NO];
+//	timer =[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(nextPage:) userInfo:nil repeats:NO];
 
 	appDelegate = [[UIApplication sharedApplication] delegate];
+
+	[appDelegate setScanedProduct:@"さくさくしっとりチョコ" andPrice:@"108" andAmount:@"2"];
+	[appDelegate setScanedProduct:@"ごりらのはなくそ" andPrice:@"200" andAmount:@"2"];
+	[appDelegate setScanedProduct:@"ごりらのうんこ" andPrice:@"100" andAmount:@"2"];
+	[appDelegate setScanedProduct:@"iPhone5S" andPrice:@"1000" andAmount:@"2"];
+	[appDelegate setScanedProduct:@"MacBook Air" andPrice:@"5000" andAmount:@"2"];
+	[appDelegate setScanedProduct:@"豚バラかたまり肉" andPrice:@"1000" andAmount:@"2"];
+	[appDelegate setScanedProduct:@"和無田モーニングショット" andPrice:@"120" andAmount:@"2"];
 	
 	// テーブル定義、位置指定
-	UITableView *tableView = [[UITableView alloc]initWithFrame: CGRectMake(0, 0, self.view.bounds.size.width-20, self.view.bounds.size.height - 220) style:UITableViewStylePlain];
+	UITableView *tableView = [[UITableView alloc]initWithFrame: CGRectMake(0, 64, self.view.bounds.size.width-20, self.view.bounds.size.height - 500) style:UITableViewStylePlain];
 	tableView.tableFooterView = [[UIView alloc] init];
 	[self.view addSubview:tableView];
 	tableView.delegate = self;
 	tableView.dataSource = self;
 	[tableView registerNib:[UINib nibWithNibName:@"ListTableViewCell" bundle:nil]forCellReuseIdentifier:@"cell"];
 
+	//上のナビゲーションバー
+	UINavigationBar *nav = [[UINavigationBar alloc] init];
+	nav.frame = CGRectMake(0, 0, self.view.bounds.size.width, 64);
+	UINavigationItem* item = [[UINavigationItem alloc] initWithTitle:@"お会計"];
+	nav.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+	[nav setItems:@[item]];
+	[UINavigationBar appearance].barTintColor = [UIColor colorWithRed:0.0 green:0.502 blue:0.0 alpha:1.000];
+	[self.view addSubview:nav];
+
+	
 	//お買い上げありがとうございましたラベル
 	_thanksLabel = [[UILabel alloc] init];
 	_thanksLabel.numberOfLines = 2;
@@ -107,9 +125,9 @@
 {
 	switch(indexPath.row) {
 		case 0:
-			return 100;
+			return 40;
 		default:
-			return 30;
+			return 40;
 	}
 }
 

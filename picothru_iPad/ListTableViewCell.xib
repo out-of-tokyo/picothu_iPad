@@ -15,33 +15,33 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="商品名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gk4-Vk-YkL">
-                        <rect key="frame" x="32" y="69" width="280" height="49"/>
+                        <rect key="frame" x="32" y="71" width="498" height="49"/>
                         <fontDescription key="fontDescription" name="HiraKakuProN-W3" family="Hiragino Kaku Gothic ProN" pointSize="32"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="価格" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5a-T5-BOm">
-                        <rect key="frame" x="474" y="68" width="88" height="51"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="¥" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fe7-eB-09V">
-                        <rect key="frame" x="424" y="71" width="42" height="46"/>
+                        <rect key="frame" x="542" y="71" width="42" height="46"/>
                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="×" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xNh-MQ-IwH">
-                        <rect key="frame" x="592" y="65" width="46" height="52"/>
+                        <rect key="frame" x="628" y="65" width="46" height="52"/>
                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="点" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PP4-nC-BiS">
-                        <rect key="frame" x="744" y="70" width="55" height="48"/>
+                        <rect key="frame" x="692" y="71" width="55" height="48"/>
                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="個数" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90H-tP-HOJ">
                         <rect key="frame" x="646" y="62" width="93" height="63"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="価格" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5a-T5-BOm">
+                        <rect key="frame" x="557" y="68" width="88" height="51"/>
                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -52,7 +52,7 @@
                 <outlet property="prodactname" destination="gk4-Vk-YkL" id="WVC-q5-3Vc"/>
                 <outlet property="prodactprice" destination="m5a-T5-BOm" id="pcV-sT-i6H"/>
             </connections>
-            <point key="canvasLocation" x="375.5" y="93.5"/>
+            <point key="canvasLocation" x="375.5" y="91.5"/>
         </tableViewCell>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
