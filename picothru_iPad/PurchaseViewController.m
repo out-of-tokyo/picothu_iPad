@@ -18,7 +18,7 @@
 	[super viewDidLoad];
 
 	
-	NSLog(@"ページ遷移したぜええええええ！");
+
 }
 
 @end

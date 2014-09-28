@@ -18,6 +18,8 @@ AVCaptureDeviceInput *_input;
 AVCaptureMetadataOutput *_output;
 AVCaptureVideoPreviewLayer *_prevLayer;
 UIView *_highlightView;
+int flag;
+
 }
 @end
 
@@ -25,6 +27,7 @@ UIView *_highlightView;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	flag = 0;
 	//カメラを起動
 	[self launchCamera];
 	
@@ -74,7 +77,6 @@ UIView *_highlightView;
 	NSArray *barCodeTypes = @[AVMetadataObjectTypeUPCECode, AVMetadataObjectTypeCode39Code, AVMetadataObjectTypeCode39Mod43Code,
 							  AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode93Code, AVMetadataObjectTypeCode128Code,
 							  AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeQRCode, AVMetadataObjectTypeAztecCode];
-	int flag = 0;
 	for (AVMetadataObject *metadata in metadataObjects) {
 		for (NSString *type in barCodeTypes) {
 			if ([metadata.type isEqualToString:type])
@@ -86,12 +88,12 @@ UIView *_highlightView;
 			}
 		}
 		//バーコードスキャン成功したらQRコード値をtokenとしてPOST
-		if (qrCode != nil && flag == 0);
-		{
+		if (qrCode != nil && flag == 0){
 			NSLog(@"QRCode: %@",qrCode);
 			[self postQRCode:qrCode];
 			qrCode = nil;
 			flag = 1;
+			[self gotoPurchase];
 			break;
 		}
 	}
@@ -108,11 +110,12 @@ UIView *_highlightView;
 	NSMutableDictionary *mutableDic = [NSMutableDictionary dictionary];
 	//★APIの形式に合わせて組み立てる
 	[mutableDic setValue:qrCode forKey:@"encrypted_purchase"];
-	NSData *body = [NSJSONSerialization dataWithJSONObject:mutableDic options:NSJSONWritingPrettyPrinted error:Nil];
+	NSData *body = [NSJSONSerialization dataWithJSONObject:mutableDic options:NSJSONWritingPrettyPrinted error:nil];
 	
 	//リクエスト作成
 	url     = [NSURL URLWithString:@"http://54.64.69.224/api/v0/purchase"];
-	request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+	request = [[NSMutableURLRequest alloc]init];
+	[request setURL:url];
 	[request setHTTPMethod:@"POST"];
 	[request setHTTPBody:body];
 	
@@ -121,44 +124,16 @@ UIView *_highlightView;
 	//HTTPリクエスト送信
 	NSHTTPURLResponse *response = nil;
 	NSError *error          = nil;
+//	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+//	NSData * response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 	NSData *result          = [NSURLConnection sendSynchronousRequest:request
 													returningResponse:&response
 																error:&error];
 	
 	NSLog(@"response: %@",response);
 	NSLog(@"result: %@",result);
+	NSLog(@"error: %@",error);
 	
-	
-	//	// HTTP requestの作成
-//	NSURL *url = [NSURL fileURLWithPath:@"http://54.64.69.224/api/v0/purchase"];
-//	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-//	[request setHTTPMethod:@"POST"];
-//	[request setHTTPBody:[qrCode dataUsingEncoding:NSUTF8StringEncoding]];
-//
-//	NSLog(@"qrCode: %@",qrCode);
-//	NSLog(@"request: %@",[request allHTTPHeaderFields]);
-//
-//	// 送信処理
-//	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-//	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-//	NSLog(@"response: %@",response);
-//	if(response){
-//		NSArray *array = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:nil];
-//		NSLog(@"array: %@",array);
-//		BOOL loginResult = [array valueForKey:@"status"];
-//		NSLog(@"loginResult: ",loginResult);
-//		if (loginResult){
-//			UIAlertView *alert =
-//			[[UIAlertView alloc] initWithTitle:@"Picoした" message:@"完了しました" delegate:self cancelButtonTitle:@"確認" otherButtonTitles:nil];
-//			[alert show];
-//			[self gotoPurchase];
-//
-//		}else{
-//			[self errormessage];
-//		}
-//	}else{
-//		[self errormessage];
-//	}
 }
 
 -(void)errormessage{
