@@ -11,7 +11,12 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) NSMutableArray *products;
 
+- (void)setScanedProduct:(NSString *)name andPrice:(NSString *)price andAmount:(NSString *)amount;
+- (int)getTotalPrice;
+- (int)getTotalAmount;
+- (int)getCount;
 
 @end
 

@@ -16,6 +16,9 @@
 		AA66C13A19D4107300237764 /* picothru_iPadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA66C13919D4107300237764 /* picothru_iPadTests.m */; };
 		AA68C70D19D6582A003A7F95 /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA68C70C19D6582A003A7F95 /* PurchaseViewController.m */; };
 		AA78FE6D19D579310054783A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA78FE6C19D579310054783A /* AVFoundation.framework */; };
+		AADD8DF219D87221008184C3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AADD8DF119D87221008184C3 /* QuartzCore.framework */; };
+		AADD8DF619D87C88008184C3 /* ListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AADD8DF419D87C88008184C3 /* ListTableViewCell.m */; };
+		AADD8DF719D87C88008184C3 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADD8DF519D87C88008184C3 /* ListTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,10 @@
 		AA68C70B19D6582A003A7F95 /* PurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseViewController.h; sourceTree = "<group>"; };
 		AA68C70C19D6582A003A7F95 /* PurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseViewController.m; sourceTree = "<group>"; };
 		AA78FE6C19D579310054783A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		AADD8DF119D87221008184C3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AADD8DF319D87C88008184C3 /* ListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewCell.h; sourceTree = "<group>"; };
+		AADD8DF419D87C88008184C3 /* ListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListTableViewCell.m; sourceTree = "<group>"; };
+		AADD8DF519D87C88008184C3 /* ListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AADD8DF219D87221008184C3 /* QuartzCore.framework in Frameworks */,
 				AA78FE6D19D579310054783A /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,6 +77,7 @@
 		AA66C11119D4107200237764 = {
 			isa = PBXGroup;
 			children = (
+				AADD8DF119D87221008184C3 /* QuartzCore.framework */,
 				AA78FE6C19D579310054783A /* AVFoundation.framework */,
 				AA66C11C19D4107200237764 /* picothru_iPad */,
 				AA66C13619D4107300237764 /* picothru_iPadTests */,
@@ -90,6 +99,9 @@
 			children = (
 				AA66C12119D4107200237764 /* AppDelegate.h */,
 				AA66C12219D4107200237764 /* AppDelegate.m */,
+				AADD8DF319D87C88008184C3 /* ListTableViewCell.h */,
+				AADD8DF419D87C88008184C3 /* ListTableViewCell.m */,
+				AADD8DF519D87C88008184C3 /* ListTableViewCell.xib */,
 				AA68C70B19D6582A003A7F95 /* PurchaseViewController.h */,
 				AA68C70C19D6582A003A7F95 /* PurchaseViewController.m */,
 				AA66C12419D4107200237764 /* ViewController.h */,
@@ -209,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA66C12919D4107200237764 /* Main.storyboard in Resources */,
+				AADD8DF719D87C88008184C3 /* ListTableViewCell.xib in Resources */,
 				AA66C12E19D4107200237764 /* LaunchScreen.xib in Resources */,
 				AA66C12B19D4107200237764 /* Images.xcassets in Resources */,
 			);
@@ -232,6 +245,7 @@
 				AA66C12619D4107200237764 /* ViewController.m in Sources */,
 				AA66C12319D4107200237764 /* AppDelegate.m in Sources */,
 				AA66C12019D4107200237764 /* main.m in Sources */,
+				AADD8DF619D87C88008184C3 /* ListTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +373,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -370,6 +385,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

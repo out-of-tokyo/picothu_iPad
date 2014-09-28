@@ -16,8 +16,51 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	// スキャンしたデータの初期化
+	self.products = [[NSMutableArray alloc] init];
+
 	// Override point for customization after application launch.
 	return YES;
+}
+
+//[商品名, 価格, 個数]で商品を登録
+- (void)setScanedProduct:(NSString *)name andPrice:(NSString *)price andAmount:(NSString *)amount
+{
+	NSMutableDictionary * product = [NSMutableDictionary dictionary];
+	product[@"name"] = name;
+	product[@"price"] = price;
+	product[@"amount"] = amount;
+	
+	NSLog(@"NSMutableDictionary: %@",product);
+	
+	[_products addObject:product];
+	NSLog(@"_products: %@",_products);
+}
+
+// 合計金額を取得
+- (int)getTotalPrice
+{
+	int totalPrice = 0;
+	for(int i=0;i<[self getCount];i++){
+		totalPrice += [_products[i][@"price"] intValue];
+	}
+	return totalPrice;
+}
+
+// 合計個数を取得
+- (int)getTotalAmount
+{
+	int totalAmount = 0;
+	for(int i=0;i<[self getCount];i++){
+		totalAmount += [_products[i][@"amount"] intValue];
+	}
+	return totalAmount;
+}
+
+// 商品種類数を取得
+- (int)getCount;
+{
+	return [_products count];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

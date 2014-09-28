@@ -9,17 +9,18 @@
 #import "ViewController.h"
 #import "PurchaseViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "AppDelegate.h"
 
 @interface ViewController ()<AVCaptureMetadataOutputObjectsDelegate>
 {
-AVCaptureSession *_session;
-AVCaptureDevice *_device;
-AVCaptureDeviceInput *_input;
-AVCaptureMetadataOutput *_output;
-AVCaptureVideoPreviewLayer *_prevLayer;
-UIView *_highlightView;
-int flag;
-
+	AVCaptureSession *_session;
+	AVCaptureDevice *_device;
+	AVCaptureDeviceInput *_input;
+	AVCaptureMetadataOutput *_output;
+	AVCaptureVideoPreviewLayer *_prevLayer;
+	UIView *_highlightView;
+	int flag;
+	AppDelegate *appDelegate;
 }
 @end
 
@@ -27,6 +28,9 @@ int flag;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+
+	appDelegate = [[UIApplication sharedApplication] delegate];
+
 	flag = 0;
 	//カメラを起動
 	[self launchCamera];
@@ -118,22 +122,47 @@ int flag;
 	[request setURL:url];
 	[request setHTTPMethod:@"POST"];
 	[request setHTTPBody:body];
+	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+	[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 	
 	NSLog(@"request: %@",request);
 	
 	//HTTPリクエスト送信
 	NSHTTPURLResponse *response = nil;
-	NSError *error          = nil;
-//	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-//	NSData * response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	NSData *result          = [NSURLConnection sendSynchronousRequest:request
-													returningResponse:&response
-																error:&error];
+	NSError *error = nil;
+	NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 	
+	NSString *contentsString = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+	NSLog(@"contents:\n%@", contentsString);
 	NSLog(@"response: %@",response);
 	NSLog(@"result: %@",result);
 	NSLog(@"error: %@",error);
 	
+	[self response2products:result];
+}
+
+-(void)response2products:(NSData *)response
+{
+	NSError *error;
+	// jsonをパースしてArrayに入れる
+	NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:response
+													 options:NSJSONReadingAllowFragments
+													   error:&error];
+	NSLog(@"[array count]: %u",[dic count]);
+	NSLog(@"dic[purchased_products]: %@",dic[@"purchased_products"]);
+	
+	// appDelegateのproductsに保存
+	for (NSDictionary *obj in dic[@"purchased_products"])
+	{
+		NSLog(@"%@",obj);
+		//　名前、価格、個数をproductsに保存
+		NSString *name = [obj objectForKey:@"name"];
+		NSString *price = [NSString stringWithFormat:@"%@",[obj objectForKey:@"price"]];
+//		NSString *amount = [NSString stringWithFormat:@"%@",[obj objectForKey:@"amount"]];
+		NSString *amount = [NSString stringWithFormat:@"%@",[obj objectForKey:@"id"]];
+		NSLog(@"name: %@, price: %@, amount: %@",name,price,amount);
+		[appDelegate setScanedProduct:name andPrice:price andAmount:amount];
+	}
 }
 
 -(void)errormessage{
