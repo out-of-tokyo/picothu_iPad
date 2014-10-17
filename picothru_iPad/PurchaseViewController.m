@@ -12,6 +12,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "AppDelegate.h"
 
+#ifdef DEBUG
+#define LOG(fmt,...) NSLog((@"%s %d "fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define NSLog(...)
+#endif
+
 @interface PurchaseViewController ()
 {
 	UILabel *_thanksLabel;
@@ -36,17 +42,17 @@
 	[super viewDidLoad];
 	
 	//タイマーをセット
-//	timer =[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(nextPage:) userInfo:nil repeats:NO];
+	timer =[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(nextPage:) userInfo:nil repeats:NO];
 
 	appDelegate = [[UIApplication sharedApplication] delegate];
 
-	[appDelegate setScanedProduct:@"さくさくしっとりチョコ" andPrice:@"108" andAmount:@"2"];
-	[appDelegate setScanedProduct:@"ごりらのはなくそ" andPrice:@"200" andAmount:@"2"];
-	[appDelegate setScanedProduct:@"ごりらのうんこ" andPrice:@"100" andAmount:@"2"];
-	[appDelegate setScanedProduct:@"iPhone5S" andPrice:@"1000" andAmount:@"2"];
-	[appDelegate setScanedProduct:@"MacBook Air" andPrice:@"5000" andAmount:@"2"];
-	[appDelegate setScanedProduct:@"豚バラかたまり肉" andPrice:@"1000" andAmount:@"2"];
-	[appDelegate setScanedProduct:@"和無田モーニングショット" andPrice:@"120" andAmount:@"2"];
+//	[appDelegate setScanedProduct:@"さくさくしっとりチョコ" andPrice:@"108" andAmount:@"2"];
+//	[appDelegate setScanedProduct:@"ごりらのはなくそ" andPrice:@"200" andAmount:@"2"];
+//	[appDelegate setScanedProduct:@"ごりらのうんこ" andPrice:@"100" andAmount:@"2"];
+//	[appDelegate setScanedProduct:@"iPhone5S" andPrice:@"1000" andAmount:@"2"];
+//	[appDelegate setScanedProduct:@"MacBook Air" andPrice:@"5000" andAmount:@"2"];
+//	[appDelegate setScanedProduct:@"豚バラかたまり肉" andPrice:@"1000" andAmount:@"2"];
+//	[appDelegate setScanedProduct:@"和無田モーニングショット" andPrice:@"120" andAmount:@"2"];
 	
 	// テーブル定義、位置指定
 	UITableView *tableView = [[UITableView alloc]initWithFrame: CGRectMake(0, 64, self.view.bounds.size.width-20, self.view.bounds.size.height - 500) style:UITableViewStylePlain];

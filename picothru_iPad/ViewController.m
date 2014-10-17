@@ -11,6 +11,12 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AppDelegate.h"
 
+#ifdef DEBUG
+#define LOG(fmt,...) NSLog((@"%s %d "fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define NSLog(...)
+#endif
+
 @interface ViewController ()<AVCaptureMetadataOutputObjectsDelegate>
 {
 	AVCaptureSession *_session;
@@ -163,7 +169,6 @@
 		[self viewDidLoad];
 	}
 }
-
 -(void)response2products:(NSData *)response
 {
 	NSError *error;
@@ -182,10 +187,12 @@
 		NSString *name = [obj objectForKey:@"name"];
 		NSString *price = [NSString stringWithFormat:@"%@",[obj objectForKey:@"price"]];
 		NSString *amount = [NSString stringWithFormat:@"%@",[obj objectForKey:@"amount"]];
-//		NSString *amount = [NSString stringWithFormat:@"%@",[obj objectForKey:@"id"]];
 		NSLog(@"name: %@, price: %@, amount: %@",name,price,amount);
 		[appDelegate setScanedProduct:name andPrice:price andAmount:amount];
 	}
+	NSLog(@"appDelegate.products[1][@amount]: %@",appDelegate.products[0][@"amount"]);
+	NSLog(@"appDelegate.products[1][@amount]: %@",appDelegate.products[1][@"amount"]);
+
 }
 
 -(void)errormessage{
